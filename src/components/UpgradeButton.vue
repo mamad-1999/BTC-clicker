@@ -7,7 +7,7 @@
       @click="$emit('upgrade')"
       :disabled="isDisabled"
     >
-      <span>{{ upgrade.label }} ({{ upgrade.ratepersecond }} PS) x {{ numUpgraded }}</span>
+      <span>{{ upgrade.label }} ({{ upgrade.ratepersecondlable }} PS) x {{ numUpgraded }}</span>
       <span class="cost">{{ upgrade.minclicklable }} BTC</span>
     </button>
 </template>
@@ -58,7 +58,7 @@ export default {
 
 
 .cost{
-  width: 90px;
+  width: 80px;
   background-color: #FFFFDF;
   font-weight: 600;
   color: rgb(105, 111, 117);
