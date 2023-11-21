@@ -28,7 +28,7 @@
       ClickButtonUpgrades,
     },
     setup() {
-      const clicks = ref(100000000);
+      const clicks = ref(1000000000);
       const upgrades = reactive(Array(upgradeFullList.length).fill(0));
   
       const state = reactive({

@@ -14,11 +14,14 @@ export default {
   },
   methods: {
     formatLargeNumber(num) {
-      if (num < 1000000) {
+      if (num < 1_000_000) {
         return Math.floor(num).toLocaleString();
-      } else {
-        const millions = (num / 1000000).toFixed(2);
+      } else if (num < 1_000_000_000 && num > 1_000_000) {
+        const millions = (num / 1_000_000).toFixed(2);
         return millions.toString() + 'M';
+      } else{
+        const billions = (num / 1_000_000_000).toFixed(3);
+        return billions.toString() + 'B';
       }
     }
   }
