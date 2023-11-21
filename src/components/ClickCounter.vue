@@ -17,8 +17,8 @@ export default {
       if (num < 1000000) {
         return Math.floor(num).toLocaleString();
       } else {
-        const millions = (num / 1000000).toFixed();
-        return parseFloat(millions).toString() + 'M';
+        const millions = (num / 1000000).toFixed(2);
+        return millions.toString() + 'M';
       }
     }
   }
