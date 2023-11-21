@@ -44,6 +44,7 @@ export default {
   margin-right: 5px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   border-radius: 15%;
   cursor: pointer;
   box-shadow: 2px 2px 10px #5B2F00;

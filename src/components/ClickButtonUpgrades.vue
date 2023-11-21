@@ -46,6 +46,16 @@ export default {
   flex-direction: column;
   gap: 10px;
   width: 90%;
-  height: 100%;
+  height: 250px;
+  overflow-y: scroll;
+  padding: 20px 10px;
+}
+
+::-webkit-scrollbar{
+    width: 2px;
+}
+::-webkit-scrollbar-thumb{
+    background-color: #f5d547;
+    border-radius: 30px;
 }
 </style>
