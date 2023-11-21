@@ -32,11 +32,11 @@ export default {
 
   @media screen and (max-width: 400px) {
     #bit{
-    width: 260px;
-    height: 260px;
+    width: 250px;
+    height: 250px;
   }
   #bit:active{
-    width: 265px;
+    width: 255px;
   }
 }
 </style>

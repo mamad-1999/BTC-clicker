@@ -58,4 +58,10 @@ export default {
     background-color: #f5d547;
     border-radius: 30px;
 }
+
+@media screen and (min-width: 768px) {
+  .list{
+    width: 50%;
+  }
+}
 </style>
