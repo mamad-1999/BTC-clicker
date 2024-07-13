@@ -21,6 +21,12 @@ export default {
     font-size: 50px;
     font-weight: bold;
   }
+
+  @media screen and (max-width: 400px) {
+    #clicks{
+    font-size: 65px;
+  }
+}
 </style>
 
-<!-- Automatic Clicking Rate: {{ clickDelta.toFixed(0) }} clicks per second -->
+<!-- {{ clickDelta.toFixed(0) }} -->
