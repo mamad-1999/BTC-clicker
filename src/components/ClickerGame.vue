@@ -16,7 +16,7 @@
   import ClickCounter from './ClickCounter.vue';
   import ClickButton from './ClickButton.vue';
   import ClickButtonUpgrades from './ClickButtonUpgrades.vue';
-  import upgradeFullList from './upgrades.json';
+  import upgradeFullList from '../upgrades.json';
   
   const autoclickUpdateRate = 20;
   
