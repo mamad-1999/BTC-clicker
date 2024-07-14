@@ -1,36 +1,65 @@
 [
-  { "id": 0, "label": "Novice Tapper", "ratepersecond": 1, "minclicks": 10 },
-  { "id": 1, "label": "Steady Clicker", "ratepersecond": 5, "minclicks": 50 },
-  { "id": 2, "label": "Swift Striker", "ratepersecond": 20, "minclicks": 500 },
-  { "id": 3, "label": "Rapid Tapper", "ratepersecond": 100, "minclicks": 5000 },
+  {
+    "id": 0,
+    "label": "Novice Tapper",
+    "ratepersecond": 1,
+    "minclicks": 10,
+    "minclicklable": "10"
+  },
+  {
+    "id": 1,
+    "label": "Steady Clicker",
+    "ratepersecond": 5,
+    "minclicks": 50,
+    "minclicklable": "50"
+  },
+  {
+    "id": 2,
+    "label": "Swift Striker",
+    "ratepersecond": 20,
+    "minclicks": 500,
+    "minclicklable": "500"
+  },
+  {
+    "id": 3,
+    "label": "Rapid Tapper",
+    "ratepersecond": 100,
+    "minclicks": 5000,
+    "minclicklable": "5K"
+  },
   {
     "id": 4,
     "label": "Click Dynamo",
     "ratepersecond": 350,
-    "minclicks": 20000
+    "minclicks": 20000,
+    "minclicklable": "20K"
   },
   {
     "id": 5,
     "label": "Tap Tornado",
     "ratepersecond": 1000,
-    "minclicks": 100000
+    "minclicks": 100000,
+    "minclicklable": "100K"
   },
   {
     "id": 6,
     "label": "Click Supernova",
     "ratepersecond": 6000,
-    "minclicks": 500000
+    "minclicks": 500000,
+    "minclicklable": "500K"
   },
   {
     "id": 7,
     "label": "Quantum Clicker",
     "ratepersecond": 50000,
-    "minclicks": 10000000
+    "minclicks": 10000000,
+    "minclicklable": "10M"
   },
   {
     "id": 8,
     "label": "Cosmic Click Master",
     "ratepersecond": 1000000,
-    "minclicks": 250000000
+    "minclicks": 250000000,
+    "minclicklable": "250M"
   }
 ]

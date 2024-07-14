@@ -8,7 +8,7 @@
       :disabled="isDisabled"
     >
       <span>{{ upgrade.label }} ({{ upgrade.ratepersecond }} per Second) x {{ numUpgraded }}</span>
-      <span class="cost">{{ upgrade.minclicks }} BTC Cost</span>
+      <span class="cost">{{ upgrade.minclicklable }} BTC Cost</span>
     </button>
 </template>
 
