@@ -28,7 +28,7 @@
       ClickButtonUpgrades,
     },
     setup() {
-      const clicks = ref(100);
+      const clicks = ref(1000);
       const upgrades = reactive(Array(upgradeFullList.length).fill(0));
   
       const state = reactive({
@@ -80,7 +80,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: linear-gradient(40deg, rgba(242, 169, 0, 1) 10%, rgba(211, 143, 0, 1) 20%, rgba(180, 117, 0, 1) 35%, rgba(150, 93, 0, 1) 45%, rgba(120, 69, 0, 1) 55%, rgba(91, 47, 0, 1) 65%, rgba(64, 26, 0, 1) 80%, rgba(39, 2, 0, 1) 90%, rgba(0, 0, 0, 1) 100%);
     gap: 20px;
     padding: 30px 0;
   }

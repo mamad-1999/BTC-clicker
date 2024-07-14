@@ -7,7 +7,7 @@
       @click="$emit('upgrade')"
       :disabled="isDisabled"
     >
-      <span>{{ upgrade.label }} ({{ upgrade.ratepersecond }} per Second) x {{ numUpgraded }}</span>
+      <span>{{ upgrade.label }} ({{ upgrade.ratepersecond }} PS) x {{ numUpgraded }}</span>
       <span class="cost">{{ upgrade.minclicklable }} BTC</span>
     </button>
 </template>
