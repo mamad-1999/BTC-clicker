@@ -8,7 +8,7 @@
       :disabled="isDisabled"
     >
       <span>{{ upgrade.label }} ({{ upgrade.ratepersecond }} per Second) x {{ numUpgraded }}</span>
-      <span class="cost">{{ upgrade.minclicklable }} BTC Cost</span>
+      <span class="cost">{{ upgrade.minclicklable }} BTC</span>
     </button>
 </template>
 
@@ -44,7 +44,7 @@ export default {
   margin-right: 5px;
   display: flex;
   justify-content: space-between;
-  border-radius: 10%;
+  border-radius: 5px;
   cursor: pointer;
   box-shadow: 1px 1px 3px #5B2F00;
   color: #5B2F00;
@@ -52,15 +52,21 @@ export default {
 }
 
 .update-button:disabled{
-  background-color: #fafa97;
+  background-color: #be9341;
 }
 
+
 .cost{
+  width: 90px;
   background-color: #FFFFDF;
   font-weight: 600;
   color: rgb(105, 111, 117);
   border-radius: 10px;
   padding: 2px 4px;
+}
+
+.update-button:disabled .cost{
+  background-color: #c7c7c7;
 }
 
 @media screen and (min-width: 768px) {
