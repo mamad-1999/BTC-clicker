@@ -44,9 +44,9 @@ export default {
   margin-right: 5px;
   display: flex;
   justify-content: space-between;
-  border-radius: 5px;
+  border-radius: 15%;
   cursor: pointer;
-  box-shadow: 1px 1px 3px #5B2F00;
+  box-shadow: 2px 2px 10px #5B2F00;
   color: #5B2F00;
   font-weight: 600;
 }

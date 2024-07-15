@@ -23,18 +23,20 @@ export default {
     width: 200px;
     height: 200px;
     cursor: pointer;
+    filter: drop-shadow(2px 2px 20px rgba(64, 26, 0, 1));
   }
 
   #bit:active{
-    width: 210px;
+    width: 205px;
   }
 
   @media screen and (max-width: 400px) {
     #bit{
     width: 260px;
+    height: 260px;
   }
   #bit:active{
-    width: 270px;
+    width: 265px;
   }
 }
 </style>
