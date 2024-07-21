@@ -1,30 +1,35 @@
 <!-- UpgradeButton.vue -->
 <template>
-    <button
-      :id="upgrade.id"
-      class="update-button"
-      type="button"
-      @click="$emit('upgrade')"
-      :disabled="isDisabled"
+  <button
+    :id="upgrade.id"
+    class="update-button"
+    type="button"
+    @click="$emit('upgrade')"
+    :disabled="isDisabled"
+  >
+    <span
+      >{{ upgrade.label }} ({{ upgrade.ratepersecondlable }} PS) x
+      {{ numUpgraded }}</span
     >
-      <span>{{ upgrade.label }} ({{ upgrade.ratepersecondlable }} PS) x {{ numUpgraded }}</span>
-      <span class="cost">{{ upgrade.minclicklable }} BTC</span>
-    </button>
+    <span class="cost">{{ upgrade.minclicklable }} BTC</span>
+  </button>
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed } from "vue";
 
 export default {
-  name: 'UpgradeButton',
+  name: "UpgradeButton",
   props: {
     upgrade: Object,
     state: Object,
   },
-  emits: ['upgrade'],
+  emits: ["upgrade"],
   setup(props) {
     const numUpgraded = computed(() => props.state.upgrades[props.upgrade.id]);
-    const isDisabled = computed(() => props.state.clicks < props.upgrade.minclicks);
+    const isDisabled = computed(
+      () => props.state.clicks < props.upgrade.minclicks
+    );
 
     return {
       numUpgraded,
@@ -35,7 +40,7 @@ export default {
 </script>
 
 <style scoped>
-.update-button{
+.update-button {
   background-color: #f5d547;
   outline: none;
   border: none;
@@ -47,31 +52,30 @@ export default {
   align-items: center;
   border-radius: 30px;
   cursor: pointer;
-  box-shadow: 2px 2px 10px #5B2F00;
-  color: #5B2F00;
+  box-shadow: 2px 2px 10px #5b2f00;
+  color: #5b2f00;
   font-weight: 600;
 }
 
-.update-button:disabled{
+.update-button:disabled {
   background-color: #be9341;
 }
 
-
-.cost{
+.cost {
   width: 80px;
-  background-color: #FFFFDF;
+  background-color: #ffffdf;
   font-weight: 600;
   color: rgb(105, 111, 117);
   border-radius: 10px;
   padding: 2px 4px;
 }
 
-.update-button:disabled .cost{
+.update-button:disabled .cost {
   background-color: #c7c7c7;
 }
 
 @media screen and (min-width: 768px) {
-  .update-button{
+  .update-button {
     /* width: 50%; */
     margin: 0 auto;
     padding: 10px 8px;
@@ -79,7 +83,7 @@ export default {
 }
 
 @media screen and (max-width: 400px) {
-  .update-button{
+  .update-button {
     padding: 12px 8px;
   }
 }

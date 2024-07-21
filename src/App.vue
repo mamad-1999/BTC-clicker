@@ -6,14 +6,14 @@
 </template>
 
 <script>
-import ClickerGame from './components/ClickerGame.vue'
+import ClickerGame from "./components/ClickerGame.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    ClickerGame
-  }
-}
+    ClickerGame,
+  },
+};
 </script>
 
 <style>
