@@ -29,7 +29,7 @@ export default {
       if (username.value.trim()) {
         try {
           await axios.post("/create-user", { username: username.value });
-          emit("close", username.value);
+          emit("close", username);
         } catch (error) {
           console.error("Error creating user:", error);
         }

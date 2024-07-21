@@ -1,4 +1,3 @@
-<!-- ClickerGame.vue -->
 <template>
   <div class="clicker-window">
     <ClickPower :clickDelta="clickDelta" />
@@ -9,15 +8,18 @@
       :state="state"
       @upgrade="handleUpgrades"
     />
+    <UsernameModal :show="showUsernameModal" @close="onUsernameSubmit" />
   </div>
 </template>
 
 <script>
 import { ref, reactive, computed, onMounted } from "vue";
+import axios from "axios";
 import ClickCounter from "./ClickCounter.vue";
 import ClickPower from "./ClickPower.vue";
 import ClickButton from "./ClickButton.vue";
 import ClickButtonUpgrades from "./ClickButtonUpgrades.vue";
+import UsernameModal from "./UsernameModal.vue";
 import upgradeFullList from "../upgrades.json";
 
 const autoclickUpdateRate = 20;
@@ -29,10 +31,13 @@ export default {
     ClickPower,
     ClickButton,
     ClickButtonUpgrades,
+    UsernameModal,
   },
   setup() {
     const clicks = ref(1000);
     const upgrades = reactive(Array(upgradeFullList.length).fill(0));
+    const showUsernameModal = ref(true);
+    const username = ref("");
 
     const state = reactive({
       clicks,
@@ -62,8 +67,35 @@ export default {
       clicks.value -= upgradeFullList[buttonId].minclicks;
     };
 
+    const onUsernameSubmit = async (submittedUsername) => {
+      username.value = submittedUsername;
+      showUsernameModal.value = false;
+    };
+
+    const getLeaderboard = async () => {
+      try {
+        const response = await axios.get("/api/leaderboard");
+        console.log("Leaderboard:", response.data);
+        // Update your component state with this data
+      } catch (error) {
+        console.error("Error fetching leaderboard:", error);
+      }
+    };
+
+    const sendScore = async () => {
+      try {
+        await axios.post("/send-score", {
+          id: username.id,
+          score: Math.floor(clicks.value),
+        });
+      } catch (error) {
+        console.error("Error sending score:", error);
+      }
+    };
+
     onMounted(() => {
       setInterval(updateClicks, autoclickUpdateRate);
+      setInterval(sendScore, 60000); // Send score every minute
     });
 
     return {
@@ -71,8 +103,10 @@ export default {
       clickDelta,
       state,
       upgradeFullList,
+      showUsernameModal,
       handleClick,
       handleUpgrades,
+      onUsernameSubmit,
     };
   },
 };
