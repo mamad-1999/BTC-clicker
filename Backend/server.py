@@ -1,41 +1,50 @@
 from flask import Flask, request
-from flask_restful import Api, Resource
+from flask_restful import Api, Resource, fields, marshal_with
 from mongoengine import connect, Document, StringField, IntField
-from bson.json_util import dumps
 import os
 
 app = Flask(__name__)
 api = Api(app)
 
 # MongoDB connection
-mongo_uri = os.environ.get('MONGO_URI', 'your_mongodb_atlas_connection_string')
+mongo_uri = os.environ.get('MONGO_URI', 'MOGO_URI')
 connect(host=mongo_uri)
 
 # User Model
 class User(Document):
-    username = StringField(required=True, unique=True)
+    username = StringField(required=True)
     score = IntField(default=0)
 
     meta = {
         'collection': 'users',
-        'indexes': [
-            {'fields': ['score'], 'order': -1}  # Index for efficient sorting
-        ]
     }
 
-    def to_dict(self):
-        return {
-            'username': self.username,
-            'score': self.score
-        }
+# Resource fields for marshalling
+user_fields = {
+    'username': fields.String,
+    'score': fields.Integer
+}
+
+message_fields = {
+    'message': fields.String,
+    'id': fields.String
+}
 
 # API Resources
 class GetUsers(Resource):
+    @marshal_with(user_fields)
     def get(self):
-        top_users = User.objects.order_by('-score').limit(10)
-        return dumps([user.to_dict() for user in top_users])
+        try:
+            top_users = User.objects.order_by('-score').limit(10)
+            if top_users:
+                return list(top_users)
+            else:
+                return {'message': 'Users Not Found'}, 400
+        except Exception as e:
+            return {'message': f'Error Get All users: {str(e)}'}, 400
 
 class CreateUser(Resource):
+    @marshal_with(message_fields)
     def post(self):
         username = request.json.get('username')
         if not username:
@@ -48,22 +57,22 @@ class CreateUser(Resource):
             return {'message': f'Error creating user: {str(e)}'}, 400
 
 class SendScore(Resource):
+    @marshal_with(message_fields)
     def post(self):
-        username = request.json.get('username')
+        id = request.json.get('id')
         score = request.json.get('score')
         
-        if not username or score is None:
-            return {'message': 'Username and score are required'}, 400
+        if not id or score is None:
+            return {'message': 'id and score are required'}, 400
         
         try:
-            user = User.objects(username=username).first()
+            user = User.objects(id=id).first()
             if user:
                 user.score = score
                 user.save()
-                return {'message': 'Score updated successfully'}, 200
+                return {'message': 'Score updated successfully', 'id': str(user.id)}, 200
             else:
-                User(username=username, score=score).save()
-                return {'message': 'New user created with score'}, 201
+                return {'message': 'User Not Found', id: 'Not Found'}, 404
         except Exception as e:
             return {'message': f'Error updating score: {str(e)}'}, 400
 
