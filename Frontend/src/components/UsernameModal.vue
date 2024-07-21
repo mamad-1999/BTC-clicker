@@ -1,7 +1,7 @@
 <template>
   <div v-if="show" class="modal">
     <div class="modal-content">
-      <h2>Enter Your Username</h2>
+      <h2 class="label">Enter Your Username</h2>
       <input
         v-model="username"
         @keyup.enter="submitUsername"
@@ -28,7 +28,7 @@ export default {
     const submitUsername = async () => {
       if (username.value.trim()) {
         try {
-          await axios.post("/create-user", { username: username.value });
+          // await axios.post("/create-user", { username: username.value });
           emit("close", username);
         } catch (error) {
           console.error("Error creating user:", error);
@@ -57,27 +57,56 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 20px;
 }
 
 .modal-content {
   background-color: #fefefe;
   padding: 20px;
   border: 1px solid #888;
-  width: 300px;
+  width: 330px;
+  height: 280px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 80px rgb(46, 46, 46);
+}
+
+.label {
+  color: #666666;
 }
 
 input {
   width: 100%;
-  padding: 10px;
+  padding: 15px;
   margin: 10px 0;
+  border: 1px solid rgb(216, 216, 216);
+  border-radius: 5px;
+  font-size: 16px;
+  box-shadow: 1px 1px 10px rgb(138, 138, 138);
 }
 
 button {
-  padding: 10px 20px;
+  width: 100%;
+  padding: 15px 20px;
   background-color: #4caf50;
   color: white;
   border: none;
   cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: background-color 0.25s;
+  box-shadow: 1px 1px 10px rgb(138, 138, 138);
+}
+
+button:hover {
+  background-color: #409743;
 }
 </style>
