@@ -33,6 +33,7 @@ export default {
   color: aliceblue;
   font-size: 50px;
   font-weight: bold;
+  margin-top: 30px;
 }
 
 @media screen and (max-width: 400px) {

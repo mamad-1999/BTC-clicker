@@ -1,7 +1,8 @@
 <!-- ClickerGame.vue -->
 <template>
     <div class="clicker-window">
-      <ClickCounter :clicks="clicks" :clickDelta="clickDelta" />
+      <ClickPower :clickDelta="clickDelta" />
+      <ClickCounter :clicks="clicks" />
       <ClickButton @click="handleClick" />
       <ClickButtonUpgrades
         :upgradeFullList="upgradeFullList"
@@ -14,6 +15,7 @@
   <script>
   import { ref, reactive, computed, onMounted } from 'vue';
   import ClickCounter from './ClickCounter.vue';
+  import ClickPower from './clickPower.vue'
   import ClickButton from './ClickButton.vue';
   import ClickButtonUpgrades from './ClickButtonUpgrades.vue';
   import upgradeFullList from '../upgrades.json';
@@ -24,6 +26,7 @@
     name: 'ClickerGame',
     components: {
       ClickCounter,
+      ClickPower,
       ClickButton,
       ClickButtonUpgrades,
     },
@@ -81,6 +84,6 @@
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    padding: 30px 0;
+    position: relative;
   }
   </style>
