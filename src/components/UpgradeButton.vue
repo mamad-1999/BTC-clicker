@@ -41,20 +41,20 @@ export default {
 
 <style scoped>
 .update-button {
-  background-color: #f5d547;
-  outline: none;
-  border: none;
-  padding: 8px 8px;
   width: 100%;
+  padding: 8px 8px;
   margin-right: 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: #f5d547;
+  font-weight: 600;
+  color: #5b2f00;
+  box-shadow: 2px 2px 10px #5b2f00;
+  outline: none;
+  border: none;
   border-radius: 30px;
   cursor: pointer;
-  box-shadow: 2px 2px 10px #5b2f00;
-  color: #5b2f00;
-  font-weight: 600;
 }
 
 .update-button:disabled {
@@ -63,11 +63,11 @@ export default {
 
 .cost {
   width: 80px;
+  padding: 2px 4px;
   background-color: #ffffdf;
   font-weight: 600;
   color: rgb(105, 111, 117);
   border-radius: 10px;
-  padding: 2px 4px;
 }
 
 .update-button:disabled .cost {
@@ -76,7 +76,6 @@ export default {
 
 @media screen and (min-width: 768px) {
   .update-button {
-    /* width: 50%; */
     margin: 0 auto;
     padding: 10px 8px;
   }

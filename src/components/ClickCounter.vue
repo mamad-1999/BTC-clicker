@@ -30,10 +30,10 @@ export default {
 
 <style scoped>
 #clicks {
-  color: aliceblue;
+  margin-top: 45px;
   font-size: 50px;
   font-weight: bold;
-  margin-top: 45px;
+  color: aliceblue;
 }
 
 @media screen and (max-width: 400px) {

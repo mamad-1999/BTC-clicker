@@ -33,7 +33,7 @@ export default {
   position: absolute;
   left: 15px;
   top: 15px;
-  color: aliceblue;
   font-size: 20px;
+  color: aliceblue;
 }
 </style>

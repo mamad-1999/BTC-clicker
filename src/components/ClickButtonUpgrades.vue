@@ -44,14 +44,14 @@ export default {
 
 <style scoped>
 .list {
-  list-style: none;
+  width: 90%;
+  height: 250px;
+  padding: 20px 10px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  width: 90%;
-  height: 250px;
+  list-style: none;
   overflow-y: scroll;
-  padding: 20px 10px;
 }
 
 ::-webkit-scrollbar {

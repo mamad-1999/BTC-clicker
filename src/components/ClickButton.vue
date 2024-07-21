@@ -15,9 +15,9 @@ export default {
 <style scoped>
 .bit-wrapper {
   width: 100%;
+  padding: 5px;
   display: flex;
   justify-content: center;
-  padding: 5px;
 }
 #bit {
   width: 200px;
