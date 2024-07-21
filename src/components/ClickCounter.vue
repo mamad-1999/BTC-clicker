@@ -33,12 +33,12 @@ export default {
   color: aliceblue;
   font-size: 50px;
   font-weight: bold;
-  margin-top: 30px;
+  margin-top: 45px;
 }
 
 @media screen and (max-width: 400px) {
   #clicks {
-    font-size: 65px;
+    font-size: 60px;
   }
 }
 </style>

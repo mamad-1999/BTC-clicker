@@ -31,9 +31,9 @@ export default {
   display: flex;
   gap: 2px;
   position: absolute;
-  left: 10px;
-  top: 10px;
+  left: 15px;
+  top: 15px;
   color: aliceblue;
-  font-size: 18px;
+  font-size: 20px;
 }
 </style>
