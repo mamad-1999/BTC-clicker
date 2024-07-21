@@ -47,7 +47,11 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f5d547;
+  background: linear-gradient(
+    60deg,
+    rgba(222, 180, 13, 1) 0%,
+    rgba(250, 212, 37, 1) 65%
+  );
   font-weight: 600;
   color: #5b2f00;
   box-shadow: 2px 2px 10px #5b2f00;

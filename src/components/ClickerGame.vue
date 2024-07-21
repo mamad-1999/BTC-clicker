@@ -15,7 +15,7 @@
 <script>
 import { ref, reactive, computed, onMounted } from "vue";
 import ClickCounter from "./ClickCounter.vue";
-import ClickPower from "./clickPower.vue";
+import ClickPower from "./ClickPower.vue";
 import ClickButton from "./ClickButton.vue";
 import ClickButtonUpgrades from "./ClickButtonUpgrades.vue";
 import upgradeFullList from "../upgrades.json";
