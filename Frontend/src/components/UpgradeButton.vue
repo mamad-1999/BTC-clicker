@@ -59,10 +59,15 @@ export default {
   border: none;
   border-radius: 30px;
   cursor: pointer;
+  transition: all 0.5s ease;
 }
 
 .update-button:disabled {
-  background-color: #be9341;
+  background: linear-gradient(
+    60deg,
+    rgb(163, 133, 10) 0%,
+    rgb(170, 144, 25) 65%
+  );
 }
 
 .cost {
