@@ -16,7 +16,7 @@
           <!-- @vue-skip -->
           <tr v-for="(player, index) in leaderboard" :key="player?.id">
             <td>{{ index + 1 }}</td>
-            <td>{{ player?.id }}</td>
+            <td>{{ player?.username }}</td>
             <td>{{ player?.score }}</td>
           </tr>
         </tbody>

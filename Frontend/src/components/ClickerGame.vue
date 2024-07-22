@@ -49,7 +49,7 @@ export default {
     const upgrades = reactive(Array(upgradeFullList.length).fill(0));
     const showUsernameModal = ref(true);
     const showLeaderboard = ref(false);
-    const username = ref("");
+    const userData = ref({});
     const lastSentScore = ref(0);
     const leaderboard = ref([]);
 
@@ -82,8 +82,11 @@ export default {
     };
 
     const onUsernameSubmit = async (submittedUsername) => {
-      console.log(submittedUsername);
-      username.value = submittedUsername;
+      userData.username = submittedUsername.username;
+      userData.id = submittedUsername.id;
+
+      console.log(userData);
+
       showUsernameModal.value = false;
     };
 
@@ -99,7 +102,6 @@ export default {
         // Check if the response is valid JSON
         if (response.headers["content-type"].includes("application/json")) {
           leaderboard.value = response.data.slice(0, 10); // Get top 10 players
-          console.log("Leaderboard:", leaderboard.value);
         } else {
           console.error(
             "Invalid response format. Expected JSON, got:",
@@ -116,10 +118,9 @@ export default {
     const sendScore = async () => {
       try {
         await axios.post("http://127.0.0.1:5000/send-score", {
-          id: username.value,
+          id: userData.id,
           score: Math.floor(clickDelta.value),
         });
-        console.log("Score sent successfully");
         getLeaderboard(); // Update leaderboard after sending score
       } catch (error) {
         console.error("Error sending score:", error);
@@ -129,8 +130,6 @@ export default {
     const debouncedSendScore = debounce(sendScore, 3000);
 
     const sendScoreIfSignificantChange = () => {
-      console.log(clickDelta);
-
       const currentScore = Math.floor(clickDelta.value);
       if (
         currentScore - lastSentScore.value > 10 ||

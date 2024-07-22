@@ -37,7 +37,8 @@ user_fields = {
 
 message_fields = {
     'message': fields.String,
-    'id': fields.String
+    'id': fields.String,
+    'username': fields.String
 }
 
 # API Resources
@@ -62,7 +63,7 @@ class CreateUser(Resource):
         
         try:
             user = User(username=username).save()
-            return {'message': 'User created successfully', 'id': str(user.id)}, 201
+            return {'message': 'User created successfully', 'id': str(user.id), 'username': str(user.username)}, 201
         except Exception as e:
             return {'message': f'Error creating user: {str(e)}'}, 400
 
@@ -80,7 +81,7 @@ class SendScore(Resource):
             if user:
                 user.score = score
                 user.save()
-                return {'message': 'Score updated successfully', 'id': str(user.id)}, 200
+                return {'message': 'Score updated successfully', 'id': str(user.id), 'username': str(user.username)}, 200
             else:
                 return {'message': 'User Not Found', id: 'Not Found'}, 404
         except Exception as e:

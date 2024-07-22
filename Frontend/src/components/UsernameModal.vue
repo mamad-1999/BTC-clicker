@@ -31,7 +31,8 @@ export default {
           let res = await axios.post("http://127.0.0.1:5000/create-user", {
             username: username.value.trim(),
           });
-          emit("close", res.data.id);
+
+          emit("close", { username: res.data.username, id: res.data.id });
         } catch (error) {
           console.error("Error creating user:", error);
         }
