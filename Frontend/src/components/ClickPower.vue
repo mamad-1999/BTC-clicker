@@ -2,7 +2,7 @@
 <template>
   <div id="power">
     <p>
-      {{ clickDelta }}
+      {{ formatScore(clickDelta) }}
     </p>
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -18,10 +18,16 @@
 </template>
 
 <script>
+import formatNumber from "../utils/formatNumber.js";
 export default {
   name: "ClickPower",
   props: {
     clickDelta: Number,
+  },
+  methods: {
+    formatScore(score) {
+      return formatNumber(score);
+    },
   },
 };
 </script>

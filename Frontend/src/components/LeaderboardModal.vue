@@ -26,7 +26,7 @@
               <span class="rank" v-else>{{ index + 1 }}</span>
             </td>
             <td>{{ player?.username }}</td>
-            <td>{{ player?.score }}</td>
+            <td>{{ formatScore(player?.score) }}</td>
           </tr>
         </tbody>
       </table>
@@ -39,6 +39,7 @@
 import goldImage from "../assets/gold.png";
 import silverImage from "../assets/silver.png";
 import bronzeImage from "../assets/bronze.png";
+import formatNumber from "../utils/formatNumber.js";
 
 export default {
   name: "LeaderboardModal",
@@ -59,6 +60,9 @@ export default {
     getMedalName(index) {
       const names = ["Gold", "Silver", "Bronze"];
       return names[index];
+    },
+    formatScore(score) {
+      return formatNumber(score);
     },
   },
 };

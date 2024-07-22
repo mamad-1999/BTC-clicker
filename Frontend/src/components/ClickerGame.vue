@@ -55,7 +55,7 @@ export default {
     LeaderboardModal,
   },
   setup() {
-    const clicks = ref(1000000);
+    const clicks = ref(1000);
     const upgrades = reactive(Array(upgradeFullList.length).fill(0));
     const showUsernameModal = ref(true);
     const showLeaderboard = ref(false);
