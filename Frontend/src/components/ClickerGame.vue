@@ -68,6 +68,8 @@ export default {
     };
 
     const onUsernameSubmit = async (submittedUsername) => {
+      console.log(submittedUsername);
+
       username.value = submittedUsername;
       showUsernameModal.value = false;
     };
@@ -84,9 +86,9 @@ export default {
 
     const sendScore = async () => {
       try {
-        await axios.post("/send-score", {
-          id: username.id,
-          score: Math.floor(clicks.value),
+        await axios.post("http://127.0.0.1:5000/send-score", {
+          id: username.value,
+          score: Math.floor(clickDelta),
         });
       } catch (error) {
         console.error("Error sending score:", error);
@@ -95,7 +97,6 @@ export default {
 
     onMounted(() => {
       setInterval(updateClicks, autoclickUpdateRate);
-      setInterval(sendScore, 60000); // Send score every minute
     });
 
     return {

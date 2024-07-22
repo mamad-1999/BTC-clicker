@@ -26,12 +26,12 @@ export default {
     const username = ref("");
 
     const submitUsername = async () => {
-      if (username.value.trim()) {
+      if (username.value) {
         try {
-          await axios.post("http://127.0.0.1:5000/create-user", {
-            username: username.value,
+          let res = await axios.post("http://127.0.0.1:5000/create-user", {
+            username: username.value.trim(),
           });
-          emit("close", username);
+          emit("close", res.data.id);
         } catch (error) {
           console.error("Error creating user:", error);
         }
