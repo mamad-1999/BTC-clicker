@@ -2,7 +2,7 @@
 <template>
   <div v-if="show" class="modal-overlay">
     <div class="modal-content">
-      <h2>Leaderboard</h2>
+      <h2 class="board-title">Leaderboard</h2>
       <button class="close-button" @click="$emit('close')">×</button>
       <table v-if="leaderboard.length > 0">
         <thead>
@@ -52,6 +52,7 @@ export default {
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  padding-inline: 15px;
 }
 
 .modal-content {
@@ -65,15 +66,16 @@ export default {
   position: relative;
 }
 
-h2 {
+.board-title {
   margin-top: 0;
+  margin-bottom: 16px;
 }
 
 .close-button {
   position: absolute;
   top: 10px;
   right: 10px;
-  font-size: 24px;
+  font-size: 30px;
   background: none;
   border: none;
   cursor: pointer;
@@ -88,10 +90,18 @@ th,
 td {
   padding: 10px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 2px solid rgb(255, 204, 0);
 }
 
 th {
-  background-color: #f2f2f2;
+  background-color: rgba(255, 213, 47, 0.4);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #c2c2c2;
+  border-radius: 30px;
 }
 </style>
