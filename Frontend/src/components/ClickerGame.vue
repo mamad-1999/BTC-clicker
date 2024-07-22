@@ -2,7 +2,7 @@
   <div class="clicker-window">
     <div class="leaderboard-icon" @click="showLeaderboardModal">
       <svg
-        fill="#ffffff"
+        fill="aliceblue"
         width="35px"
         height="35px"
         viewBox="0 0 24 24"
@@ -55,7 +55,7 @@ export default {
     LeaderboardModal,
   },
   setup() {
-    const clicks = ref(1000);
+    const clicks = ref(1000000);
     const upgrades = reactive(Array(upgradeFullList.length).fill(0));
     const showUsernameModal = ref(true);
     const showLeaderboard = ref(false);

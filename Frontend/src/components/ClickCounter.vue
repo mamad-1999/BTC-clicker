@@ -16,7 +16,7 @@ export default {
     formatLargeNumber(num) {
       if (num < 1_000_000) {
         return Math.floor(num).toLocaleString();
-      } else if (num < 1_000_000_000 && num > 1_000_000) {
+      } else if (num < 1_000_000_000 && num >= 1_000_000) {
         const millions = (num / 1_000_000).toFixed(2);
         return millions.toString() + "M";
       } else {
