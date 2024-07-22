@@ -1,7 +1,17 @@
 <template>
   <div class="clicker-window">
     <div class="leaderboard-icon" @click="showLeaderboardModal">
-      <button>show</button>
+      <svg
+        fill="#ffffff"
+        width="35px"
+        height="35px"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M22,7H16.333V4a1,1,0,0,0-1-1H8.667a1,1,0,0,0-1,1v7H2a1,1,0,0,0-1,1v8a1,1,0,0,0,1,1H22a1,1,0,0,0,1-1V8A1,1,0,0,0,22,7ZM7.667,19H3V13H7.667Zm6.666,0H9.667V5h4.666ZM21,19H16.333V9H21Z"
+        />
+      </svg>
     </div>
     <ClickPower :clickDelta="clickDelta" />
     <ClickCounter :clicks="clicks" />
@@ -183,10 +193,18 @@ export default {
   position: relative;
 }
 .leaderboard-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   top: 10px;
   right: 10px;
   cursor: pointer;
   /* Add more styles for your icon */
+}
+
+.leaderboard-icon img {
+  width: 50px;
+  height: 50px;
 }
 </style>
