@@ -7,7 +7,7 @@ app = Flask(__name__)
 api = Api(app)
 
 # MongoDB connection
-mongo_uri = os.environ.get('MONGO_URI', 'MOGO_URI')
+mongo_uri = os.environ.get('MONGO_URI', 'MONGO_URI')
 connect(host=mongo_uri)
 
 # User Model
