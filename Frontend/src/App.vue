@@ -20,6 +20,7 @@ export default {
 #app {
   width: 100%;
   height: 100%;
+  user-select: none;
   font-family: Avenir, Helvetica, Arial, sans-serif;
 }
 </style>
