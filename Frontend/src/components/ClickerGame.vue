@@ -1,5 +1,8 @@
 <template>
   <div class="clicker-window">
+    <div class="leaderboard-icon" @click="showLeaderboardModal">
+      <button>show</button>
+    </div>
     <ClickPower :clickDelta="clickDelta" />
     <ClickCounter :clicks="clicks" />
     <ClickButton @click="handleClick" />
@@ -9,6 +12,11 @@
       @upgrade="handleUpgrades"
     />
     <UsernameModal :show="showUsernameModal" @close="onUsernameSubmit" />
+    <LeaderboardModal
+      :show="showLeaderboard"
+      :leaderboard="leaderboard"
+      @close="showLeaderboard = false"
+    />
   </div>
 </template>
 
@@ -21,6 +29,7 @@ import ClickPower from "./ClickPower.vue";
 import ClickButton from "./ClickButton.vue";
 import ClickButtonUpgrades from "./ClickButtonUpgrades.vue";
 import UsernameModal from "./UsernameModal.vue";
+import LeaderboardModal from "./LeaderboardModal.vue";
 import upgradeFullList from "../upgrades.json";
 
 const autoclickUpdateRate = 20;
@@ -33,13 +42,16 @@ export default {
     ClickButton,
     ClickButtonUpgrades,
     UsernameModal,
+    LeaderboardModal,
   },
   setup() {
     const clicks = ref(1000);
     const upgrades = reactive(Array(upgradeFullList.length).fill(0));
     const showUsernameModal = ref(true);
+    const showLeaderboard = ref(false);
     const username = ref("");
     const lastSentScore = ref(0);
+    const leaderboard = ref([]);
 
     const state = reactive({
       clicks,
@@ -75,13 +87,29 @@ export default {
       showUsernameModal.value = false;
     };
 
+    const showLeaderboardModal = () => {
+      showLeaderboard.value = true;
+      getLeaderboard();
+    };
+
     const getLeaderboard = async () => {
       try {
-        const response = await axios.get("/api/leaderboard");
-        console.log("Leaderboard:", response.data);
-        // Update your component state with this data
+        const response = await axios.get("http://127.0.0.1:5000//get-users");
+
+        // Check if the response is valid JSON
+        if (response.headers["content-type"].includes("application/json")) {
+          leaderboard.value = response.data.slice(0, 10); // Get top 10 players
+          console.log("Leaderboard:", leaderboard.value);
+        } else {
+          console.error(
+            "Invalid response format. Expected JSON, got:",
+            response.headers["content-type"]
+          );
+          leaderboard.value = []; // Set to empty array if response is not JSON
+        }
       } catch (error) {
         console.error("Error fetching leaderboard:", error);
+        leaderboard.value = []; // Set to empty array on error
       }
     };
 
@@ -92,6 +120,7 @@ export default {
           score: Math.floor(clickDelta.value),
         });
         console.log("Score sent successfully");
+        getLeaderboard(); // Update leaderboard after sending score
       } catch (error) {
         console.error("Error sending score:", error);
       }
@@ -120,6 +149,7 @@ export default {
 
     onMounted(() => {
       setInterval(updateClicks, autoclickUpdateRate);
+      getLeaderboard(); // Initial leaderboard fetch
     });
 
     onUnmounted(() => {
@@ -132,9 +162,12 @@ export default {
       state,
       upgradeFullList,
       showUsernameModal,
+      showLeaderboard,
+      leaderboard,
       handleClick,
       handleUpgrades,
       onUsernameSubmit,
+      showLeaderboardModal,
     };
   },
 };
@@ -149,5 +182,12 @@ export default {
   align-items: center;
   gap: 20px;
   position: relative;
+}
+.leaderboard-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  /* Add more styles for your icon */
 }
 </style>
