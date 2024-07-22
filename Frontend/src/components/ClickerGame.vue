@@ -32,7 +32,7 @@
 
 <script>
 import { ref, reactive, computed, onMounted, watch, onUnmounted } from "vue";
-import axios from "axios";
+import api from "../api/axios.js";
 import { debounce } from "lodash";
 import ClickCounter from "./ClickCounter.vue";
 import ClickPower from "./ClickPower.vue";
@@ -107,37 +107,35 @@ export default {
 
     const getLeaderboard = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:5000//get-users");
+        const response = await api.get("/get-users");
 
-        // Check if the response is valid JSON
         if (response.headers["content-type"].includes("application/json")) {
-          leaderboard.value = response.data.slice(0, 50); // Get top 10 players
+          leaderboard.value = response.data.slice(0, 50);
         } else {
           console.error(
             "Invalid response format. Expected JSON, got:",
             response.headers["content-type"]
           );
-          leaderboard.value = []; // Set to empty array if response is not JSON
+          leaderboard.value = [];
         }
       } catch (error) {
         console.error("Error fetching leaderboard:", error);
-        leaderboard.value = []; // Set to empty array on error
+        leaderboard.value = [];
       }
     };
 
     const sendScore = async () => {
       try {
-        await axios.post("http://127.0.0.1:5000/send-score", {
+        await api.post("/send-score", {
           id: userData.id,
           score: Math.floor(clickDelta.value),
         });
-        getLeaderboard(); // Update leaderboard after sending score
       } catch (error) {
         console.error("Error sending score:", error);
       }
     };
 
-    const debouncedSendScore = debounce(sendScore, 3000);
+    const debouncedSendScore = debounce(sendScore, 2000);
 
     const sendScoreIfSignificantChange = () => {
       const currentScore = Math.floor(clickDelta.value);
@@ -158,11 +156,11 @@ export default {
 
     onMounted(() => {
       setInterval(updateClicks, autoclickUpdateRate);
-      getLeaderboard(); // Initial leaderboard fetch
+      getLeaderboard();
     });
 
     onUnmounted(() => {
-      sendScore(); // Ensure final score is sent
+      sendScore();
     });
 
     return {

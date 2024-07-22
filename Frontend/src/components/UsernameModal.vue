@@ -14,7 +14,7 @@
 
 <script>
 import { ref } from "vue";
-import axios from "axios";
+import api from "../api/axios.js";
 
 export default {
   name: "UsernameModal",
@@ -28,7 +28,7 @@ export default {
     const submitUsername = async () => {
       if (username.value) {
         try {
-          let res = await axios.post("http://127.0.0.1:5000/create-user", {
+          let res = await api.post("/create-user", {
             username: username.value.trim(),
           });
 
