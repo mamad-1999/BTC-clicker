@@ -1,5 +1,5 @@
-from flask import Flask, request
-from flask_restful import Api, Resource, fields, marshal_with
+from flask import Flask, request, Response
+from flask_restful import Api, Resource, fields, marshal_with, marshal
 from flask_cors import CORS
 from mongoengine import connect, Document, StringField, IntField
 import os
@@ -19,6 +19,9 @@ mongo_uri = os.environ.get('MONGO_URI', 'mongodb+srv://Mohammad1999:o2bTE0Pjajxu
 >>>>>>> 344dda6 (chore: initial implement backend code)
 >>>>>>> f3baf79 (chore: fix the content)
 connect(host=mongo_uri)
+
+def error_response(message, status_code,):
+    return {'message': message }, status_code
 
 # User Model
 class User(Document):
@@ -50,42 +53,53 @@ class GetUsers(Resource):
             if top_users:
                 return list(top_users)
             else:
-                return {'message': 'Users Not Found'}, 400
+                return error_response('Users Not Found', 400)
         except Exception as e:
-            return {'message': f'Error Get All users: {str(e)}'}, 400
+            return error_response(f'Error Get All users {str(e)}', 400)
 
 class CreateUser(Resource):
-    @marshal_with(message_fields)
     def post(self):
         username = request.json.get('username')
         if not username:
-            return {'message': 'Username is required'}, 400
+            return error_response('Username is required', 400)
+        
+        if len(username) > 8:
+            return error_response('Username length must be lower than 9 char', 400)
         
         try:
             user = User(username=username).save()
-            return {'message': 'User created successfully', 'id': str(user.id), 'username': str(user.username)}, 201
+            return marshal({
+                'message': 'User created successfully', 
+                'id': str(user.id), 
+                'username': str(user.username)
+            }, message_fields), 201
         except Exception as e:
-            return {'message': f'Error creating user: {str(e)}'}, 400
+            return error_response(f'Error creating user {str(e)}', 400)
 
 class SendScore(Resource):
-    @marshal_with(message_fields)
     def post(self):
         id = request.json.get('id')
         score = request.json.get('score')
         
         if not id or score is None:
-            return {'message': 'id and score are required'}, 400
+            return error_response('id and score are required', 400)
         
         try:
             user = User.objects(id=id).first()
             if user:
+                if int(user.score) > int(score):
+                    return error_response('Bad request, score is not valid', 400)
                 user.score = score
                 user.save()
-                return {'message': 'Score updated successfully', 'id': str(user.id), 'username': str(user.username)}, 200
+                return marshal({
+                    'message': 'Score updated successfully', 
+                    'id': str(user.id), 
+                    'username': str(user.username)
+                }, message_fields), 200
             else:
-                return {'message': 'User Not Found', id: 'Not Found'}, 404
+                return error_response('User Not Found', 400)
         except Exception as e:
-            return {'message': f'Error updating score: {str(e)}'}, 400
+            return error_response(f'Error updating score {str(e)}', 400)
 
 # API routes
 api.add_resource(GetUsers, '/get-users')
