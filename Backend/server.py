@@ -1,9 +1,11 @@
 from flask import Flask, request
 from flask_restful import Api, Resource, fields, marshal_with
+from flask_cors import CORS
 from mongoengine import connect, Document, StringField, IntField
 import os
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
 api = Api(app)
 
 # MongoDB connection

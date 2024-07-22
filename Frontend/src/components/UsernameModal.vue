@@ -28,7 +28,9 @@ export default {
     const submitUsername = async () => {
       if (username.value.trim()) {
         try {
-          // await axios.post("/create-user", { username: username.value });
+          await axios.post("http://127.0.0.1:5000/create-user", {
+            username: username.value,
+          });
           emit("close", username);
         } catch (error) {
           console.error("Error creating user:", error);
