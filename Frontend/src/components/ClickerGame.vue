@@ -13,8 +13,9 @@
 </template>
 
 <script>
-import { ref, reactive, computed, onMounted } from "vue";
+import { ref, reactive, computed, onMounted, watch, onUnmounted } from "vue";
 import axios from "axios";
+import { debounce } from "lodash";
 import ClickCounter from "./ClickCounter.vue";
 import ClickPower from "./ClickPower.vue";
 import ClickButton from "./ClickButton.vue";
@@ -38,6 +39,7 @@ export default {
     const upgrades = reactive(Array(upgradeFullList.length).fill(0));
     const showUsernameModal = ref(true);
     const username = ref("");
+    const lastSentScore = ref(0);
 
     const state = reactive({
       clicks,
@@ -69,7 +71,6 @@ export default {
 
     const onUsernameSubmit = async (submittedUsername) => {
       console.log(submittedUsername);
-
       username.value = submittedUsername;
       showUsernameModal.value = false;
     };
@@ -88,15 +89,41 @@ export default {
       try {
         await axios.post("http://127.0.0.1:5000/send-score", {
           id: username.value,
-          score: Math.floor(clickDelta),
+          score: Math.floor(clickDelta.value),
         });
+        console.log("Score sent successfully");
       } catch (error) {
         console.error("Error sending score:", error);
       }
     };
 
+    const debouncedSendScore = debounce(sendScore, 3000);
+
+    const sendScoreIfSignificantChange = () => {
+      console.log(clickDelta);
+
+      const currentScore = Math.floor(clickDelta.value);
+      if (
+        currentScore - lastSentScore.value > 10 ||
+        currentScore < lastSentScore.value
+      ) {
+        debouncedSendScore();
+        lastSentScore.value = currentScore;
+      }
+    };
+
+    watch(clickDelta, (newValue, oldValue) => {
+      if (newValue !== oldValue) {
+        sendScoreIfSignificantChange();
+      }
+    });
+
     onMounted(() => {
       setInterval(updateClicks, autoclickUpdateRate);
+    });
+
+    onUnmounted(() => {
+      sendScore(); // Ensure final score is sent
     });
 
     return {
