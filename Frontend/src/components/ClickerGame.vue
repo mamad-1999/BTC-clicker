@@ -111,7 +111,7 @@ export default {
 
         // Check if the response is valid JSON
         if (response.headers["content-type"].includes("application/json")) {
-          leaderboard.value = response.data.slice(0, 10); // Get top 10 players
+          leaderboard.value = response.data.slice(0, 50); // Get top 10 players
         } else {
           console.error(
             "Invalid response format. Expected JSON, got:",

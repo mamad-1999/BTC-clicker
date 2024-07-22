@@ -46,7 +46,7 @@ class GetUsers(Resource):
     @marshal_with(user_fields)
     def get(self):
         try:
-            top_users = User.objects.order_by('-score').limit(10)
+            top_users = User.objects.order_by('-score').limit(50)
             if top_users:
                 return list(top_users)
             else:
